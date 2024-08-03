@@ -2,13 +2,13 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { useState } from "react";
 import AddTodo from "./AddTodo";
+import TodoItem from "./TodoItem";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -26,18 +26,15 @@ const TodoCard = ({ todoProp }: TodoCardProps) => {
   const { title } = todoProp;
   const addTodoProps = { setTodoList };
   return (
-    <Card className="w-[500px] bg-cardbg text-blue-100">
+    <Card className="w-[500px] bg-cardBg text-blue-100">
       <CardHeader>
         <CardTitle className="py-[12px] px-[6px]">{title}</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className=" flex items-center p-4 rounded-md bg-gray-600 ">
-          <div className="flex-1 space-y-1">
-            <p className="text-sm font-medium leading-none">
-              Push Notifications
-            </p>
-          </div>
-        </div>
+        {todoList.map((todo, index) => {
+          return <div key={index}>todo</div>;
+        })}
+        <TodoItem />
       </CardContent>
       <CardFooter>
         <AddTodo addTodoProps={addTodoProps} />
