@@ -1,9 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import TodoTextArea from "./TodoTextArea";
 import Image from "next/image";
-
-const buttonCss =
-  " px-6 py-2 bg-transparent text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400";
 
 type addTodoProps = {
   addTodoProps: {
@@ -11,8 +9,14 @@ type addTodoProps = {
   };
 };
 
+const buttonCss =
+  "pr-2  bg-transparent text-black rounded-lg font-bold transform hover:-translate-y-1 transition duration-400";
+const tabStlye =
+  "w-full flex items-center p-[12px] rounded-md bg-todoItemBg focus:outline-none focus:ring-0 cursor-pointer";
+
 const AddTodo: React.FC<addTodoProps> = ({ addTodoProps }) => {
   const { setTodoList } = addTodoProps;
+  const [clickAdd, setClickAdd] = useState(false);
 
   const addTodoHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); // Prevent the form from reloading the page
@@ -25,32 +29,32 @@ const AddTodo: React.FC<addTodoProps> = ({ addTodoProps }) => {
     }
   };
 
+  const clickAddhandler = () => {
+    setClickAdd(true);
+  };
   return (
-    <div className="mx-auto max-w-7xl  px-6 lg:px-8">
-      <form
-        className="w-auto flex justify-center my-[20px]"
-        onSubmit={addTodoHandler}
-      >
+    <div className="w-full  ">
+      <form className="w-auto" onSubmit={addTodoHandler}>
         <div className="flex flex-col font-gloria">
-          <div className="flex flex-row gap-5 my-5">
-            <button type="submit" className={buttonCss}>
-              <Image
-                src="/plus.svg" // This path is relative to the `public` folder
-                alt="Plus Icon"
-                className="w-8 h-8"
-                width={8}
-                height={8}
+          <div className="flex flex-row">
+            {clickAdd ? (
+              <TodoTextArea
+                addTodoHandler={addTodoHandler}
+                onClickOutside={() => setClickAdd(false)}
               />
-            </button>
-            <input
-              type="text"
-              id="new-todo-input"
-              name="todo"
-              placeholder="Add New Task"
-              autoComplete="off"
-              className="w-full p-3 rounded-[5px] focus:outline-none focus:ring-0 focus:border-contactBorder border-[3px] border-transparent"
-              required
-            />
+            ) : (
+              <div className={tabStlye} onClick={clickAddhandler}>
+                <button type="submit" className={buttonCss}>
+                  <Image
+                    src="/plus.svg" // This path is relative to the `public` folder
+                    alt="Plus Icon"
+                    width={16}
+                    height={16}
+                  />
+                </button>
+                <p>1234</p>
+              </div>
+            )}
           </div>
         </div>
       </form>
