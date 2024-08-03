@@ -59,7 +59,9 @@ const shadcnUIConfig = {
 
 const customColors = {
   background: "#d0cfa9",
-  cardbg: "#5e81a6",
+  cardBg: "#5e81a6",
+  todoItemBg: "#4b5563",
+  todoButton: "#7fb1e2",
 };
 
 const config = {
