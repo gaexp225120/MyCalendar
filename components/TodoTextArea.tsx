@@ -1,23 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { RefObject, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useClickOutside } from "@/hook/useClickOutside";
+import { useFocusTextArea } from "@/hook/useFocusTextArea";
 
 type AddTabProps = {
   onClickOutside: () => void;
-  addTodoHandler: (event: React.FormEvent<HTMLFormElement>) => void;
+  textAreaRef: RefObject<HTMLTextAreaElement>;
 };
 
 const TodoTextArea: React.FC<AddTabProps> = (todoTextAeraProps) => {
-  const { onClickOutside, addTodoHandler } = todoTextAeraProps;
+  const { onClickOutside, textAreaRef } = todoTextAeraProps;
   const ref = useRef<HTMLDivElement>(null);
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   useClickOutside(ref, onClickOutside);
+  const focusTextArea = useFocusTextArea(textAreaRef);
 
   useEffect(() => {
-    if (textAreaRef.current) {
-      textAreaRef.current.focus();
-    }
-  }, []);
+    focusTextArea();
+  }, [textAreaRef]);
 
   return (
     <div className="w-full" ref={ref}>
